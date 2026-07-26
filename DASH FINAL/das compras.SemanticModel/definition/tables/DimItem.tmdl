@@ -1,0 +1,59 @@
+table DimItem
+	lineageTag: 27282357-ecbd-4226-b063-4071bce76928
+
+	column ID_Item
+		dataType: string
+		lineageTag: f6048637-2cb4-4bee-becb-4175ff8df346
+		summarizeBy: none
+		sourceColumn: ID_Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column Descricao_Item
+		dataType: string
+		lineageTag: a1a4546f-85ec-4b48-9d60-c03bf1a06324
+		summarizeBy: none
+		sourceColumn: Descricao_Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Categoria
+		dataType: string
+		lineageTag: 4731d1f3-3989-4104-aeac-95053208894f
+		summarizeBy: none
+		sourceColumn: ID_Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unidade_Medida
+		dataType: string
+		lineageTag: 737d0e2f-76ff-4a3c-a9de-8e6ed05b31d3
+		summarizeBy: none
+		sourceColumn: Unidade_Medida
+
+		annotation SummarizationSetBy = Automatic
+
+	column Criticidade
+		dataType: string
+		lineageTag: 441cf457-3c8c-401b-990c-02a85f22e252
+		summarizeBy: none
+		sourceColumn: Criticidade
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimItem = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\costa\Desktop\PROJETOS\portfolio-dashboards-compras\base_compras_supplychain.xlsx"), null, true),
+				    DimItem_Sheet = Fonte{[Item="DimItem",Kind="Sheet"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(DimItem_Sheet,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Tipo Alterado", [PromoteAllScalars=true]),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ID_Item", type text}, {"Descricao_Item", type text}, {"ID_Categoria", type text}, {"Unidade_Medida", type text}, {"Criticidade", type text}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

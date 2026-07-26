@@ -1,0 +1,62 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "123418f4c0003e690d20",
+  "position": {
+    "x": 0,
+    "y": 279.59183673469386,
+    "z": 2000,
+    "height": 221.42857142857144,
+    "width": 1247.9591836734694,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "treemap",
+    "query": {
+      "queryState": {
+        "Group": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimItem"
+                    }
+                  },
+                  "Property": "Descricao_Item"
+                }
+              },
+              "queryRef": "DimItem.Descricao_Item",
+              "nativeQueryRef": "Descricao_Item",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FatoCompras"
+                        }
+                      },
+                      "Property": "Valor_Total"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FatoCompras.Valor_Total)",
+              "nativeQueryRef": "Soma de Valor_Total"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

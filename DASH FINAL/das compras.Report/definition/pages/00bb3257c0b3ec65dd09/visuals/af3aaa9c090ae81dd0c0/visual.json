@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "af3aaa9c090ae81dd0c0",
+  "position": {
+    "x": 6.1224489795918364,
+    "y": 63.265306122448983,
+    "z": 0,
+    "height": 141.83673469387756,
+    "width": 506.12244897959187,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimFornecedor"
+                    }
+                  },
+                  "Property": "Fornecedor_Unico"
+                }
+              },
+              "queryRef": "DimFornecedor.Fornecedor_Unico",
+              "nativeQueryRef": "Fornecedor_Unico",
+              "active": true
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimFornecedor"
+                    }
+                  },
+                  "Property": "Categoria_Risco"
+                }
+              },
+              "queryRef": "DimFornecedor.Categoria_Risco",
+              "nativeQueryRef": "Categoria_Risco",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoCompras"
+                    }
+                  },
+                  "Property": "Spend Total"
+                }
+              },
+              "queryRef": "FatoCompras.Spend Total",
+              "nativeQueryRef": "Spend Total"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "FatoCompras"
+                  }
+                },
+                "Property": "Spend Total"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

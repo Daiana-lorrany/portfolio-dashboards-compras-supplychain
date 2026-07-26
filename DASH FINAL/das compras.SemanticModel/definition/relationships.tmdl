@@ -1,0 +1,16 @@
+relationship AutoDetected_6f668337-2f40-4b74-af26-3577c5581bea
+	fromColumn: FatoCompras.ID_Fornecedor
+	toColumn: DimFornecedor.ID_Fornecedor
+
+relationship c79b72f4-775c-a8d8-ee13-5250fe241c67
+	fromColumn: FatoCompras.Data_Pedido
+	toColumn: DimCalendario.Data
+
+relationship AutoDetected_6aedf9b3-3941-40f2-a229-61f42cf91622
+	fromColumn: DimItem.ID_Categoria
+	toColumn: DimCategoria.ID_Categoria
+
+relationship AutoDetected_2d64dff8-ddf6-4307-8765-a423636818c0
+	fromColumn: FatoCompras.ID_Item
+	toColumn: DimItem.ID_Item
+

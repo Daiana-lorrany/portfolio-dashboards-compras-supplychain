@@ -1,0 +1,67 @@
+table DimFornecedor
+	lineageTag: 22daaf97-a09f-49af-bedf-ec259375c25d
+
+	column ID_Fornecedor
+		dataType: string
+		lineageTag: 00eda46c-84e8-4f08-a194-1aa8955e0977
+		summarizeBy: none
+		sourceColumn: ID_Fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome_Fornecedor
+		dataType: string
+		lineageTag: c4ec260d-f5b0-4bfd-b52b-c11db2f75ac6
+		summarizeBy: none
+		sourceColumn: Nome_Fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria_Risco
+		dataType: string
+		lineageTag: bb596504-d253-4270-b26b-3a3ed8372c89
+		summarizeBy: none
+		sourceColumn: Categoria_Risco
+
+		annotation SummarizationSetBy = Automatic
+
+	column Localizacao
+		dataType: string
+		lineageTag: e4677b5b-0309-42f2-8985-f9f8e45e35e8
+		summarizeBy: none
+		sourceColumn: Localizacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fornecedor_Unico
+		dataType: string
+		lineageTag: 1ce3c520-46e3-4f68-b228-4e2eacbb1e35
+		summarizeBy: none
+		sourceColumn: Fornecedor_Unico
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data_Homologacao
+		dataType: int64
+		formatString: 0
+		lineageTag: b37eab46-da18-4136-8ff1-5bc42372b7ed
+		summarizeBy: none
+		sourceColumn: Data_Homologacao
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimFornecedor = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\costa\Desktop\PROJETOS\portfolio-dashboards-compras\base_compras_supplychain.xlsx"), null, true),
+				    DimFornecedor_Sheet = Fonte{[Item="DimFornecedor",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(DimFornecedor_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ID_Fornecedor", type text}, {"Nome_Fornecedor", type text}, {"Categoria_Risco", type text}, {"Localizacao", type text}, {"Fornecedor_Unico", type text}, {"Data_Homologacao", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

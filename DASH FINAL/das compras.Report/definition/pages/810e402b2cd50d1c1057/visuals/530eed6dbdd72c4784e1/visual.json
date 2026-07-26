@@ -1,0 +1,127 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "530eed6dbdd72c4784e1",
+  "position": {
+    "x": 0,
+    "y": 62.244897959183675,
+    "z": 0,
+    "height": 657.14285714285711,
+    "width": 1279.591836734694,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoCompras"
+                    }
+                  },
+                  "Property": "ID_Pedido"
+                }
+              },
+              "queryRef": "FatoCompras.ID_Pedido",
+              "nativeQueryRef": "ID_Pedido"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimFornecedor"
+                    }
+                  },
+                  "Property": "Nome_Fornecedor"
+                }
+              },
+              "queryRef": "DimFornecedor.Nome_Fornecedor",
+              "nativeQueryRef": "Nome_Fornecedor"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimItem"
+                    }
+                  },
+                  "Property": "Descricao_Item"
+                }
+              },
+              "queryRef": "DimItem.Descricao_Item",
+              "nativeQueryRef": "Descricao_Item"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoCompras"
+                    }
+                  },
+                  "Property": "Data_Pedido"
+                }
+              },
+              "queryRef": "FatoCompras.Data_Pedido",
+              "nativeQueryRef": "Data_Pedido"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FatoCompras"
+                        }
+                      },
+                      "Property": "Valor_Total"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FatoCompras.Valor_Total)",
+              "nativeQueryRef": "Soma de Valor_Total"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoCompras"
+                    }
+                  },
+                  "Property": "Tipo_Compra"
+                }
+              },
+              "queryRef": "FatoCompras.Tipo_Compra",
+              "nativeQueryRef": "Tipo_Compra"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoCompras"
+                    }
+                  },
+                  "Property": "Status_Pedido"
+                }
+              },
+              "queryRef": "FatoCompras.Status_Pedido",
+              "nativeQueryRef": "Status_Pedido"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

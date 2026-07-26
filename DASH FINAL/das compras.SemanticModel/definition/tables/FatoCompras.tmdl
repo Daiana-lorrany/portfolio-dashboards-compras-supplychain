@@ -1,0 +1,215 @@
+table FatoCompras
+	lineageTag: 5dff7e4d-0961-4385-887e-48664f697f46
+
+	measure 'Spend Total' = SUM(FatoCompras[Valor_Total])
+		formatString: "R$" #,0.00
+		lineageTag: c1222bbc-3839-4b72-8e97-aeea93018c87
+
+	measure 'Savings Realizado' =
+			
+			SUMX(FatoCompras,(FatoCompras[Preco_Tabela] - FatoCompras[Preco_Negociado]) * FatoCompras[Quantidade])
+		formatString: "R$" #,0.00
+		lineageTag: ba28c537-0f75-4542-a8b7-4f5fdf4ab669
+
+	measure '% Savings sobre Spend' = DIVIDE([Savings Realizado], SUMX(FatoCompras, FatoCompras[Preco_Tabela] * FatoCompras[Quantidade]),0)
+		formatString: 0.0%
+		lineageTag: 55025845-671e-4554-b1b6-13dd94d2e926
+
+	measure '% Compras Emergenciais' =
+			
+			DIVIDE(CALCULATE([Spend Total], FatoCompras[Tipo_Compra] = "Emergencial"),[Spend Total],0)
+		formatString: 0.0%
+		lineageTag: 617cd252-4dee-4993-9f1d-78b60f9dc242
+
+	measure '% OTIF' = ```
+			DIVIDE(
+			    CALCULATE(COUNTROWS(FatoCompras), 
+			        FatoCompras[Data_Entrega_Real] <= FatoCompras[Data_Entrega_Prevista],
+			        FatoCompras[Status_Pedido] = "Entregue"),
+			    CALCULATE(COUNTROWS(FatoCompras), FatoCompras[Status_Pedido] = "Entregue"),0)
+			```
+		formatString: 0.0%
+		lineageTag: 1dfa46f4-f07e-4804-92ba-ba4b3e40f028
+
+	measure 'Spend Mes Anterior' = CALCULATE([Spend Total], DATEADD(DimCalendario[Data], -1, MONTH))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: ef073ff9-99f9-4051-9d24-621362f9b2be
+
+	measure 'Variacao % MoM' = DIVIDE([Spend Total] - [Spend Mes Anterior], [Spend Mes Anterior],0)
+		formatString: 0.0%
+		lineageTag: a2590b6d-b5c2-4d22-a181-237b2f0679b0
+
+	measure 'Savings Acumulado YTD' = TOTALYTD([Savings Realizado], DimCalendario[Data])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 031aadd6-052f-4327-8a8b-1c64f2a59a7e
+
+	measure '% Spend Top 5 Fornecedores' =
+			VAR TotalSpendContexto = CALCULATE([Spend Total], ALLSELECTED(DimFornecedor))
+			VAR Top5 = TOPN(5, ALL(DimFornecedor), [Spend Total])
+			RETURN DIVIDE(CALCULATE([Spend Total], Top5), TotalSpendContexto, 0)
+		formatString: 0.0%
+		lineageTag: 0a4ebf5b-a8a8-4444-8a07-81645bbef415
+
+	measure 'Lead Time Medio (dias)' =
+			
+			AVERAGEX(
+			    FILTER(FatoCompras, NOT(ISBLANK(FatoCompras[Data_Entrega_Real]))),
+			    DATEDIFF(FatoCompras[Data_Pedido], FatoCompras[Data_Entrega_Real], DAY)
+			)
+		formatString: 0.0
+		lineageTag: 7d42058a-7b31-403f-96c2-108fc39d8b60
+
+	measure 'Ticket Medio por Pedido' = AVERAGEX(FatoCompras, FatoCompras[Valor_Total])
+		formatString: \$#,0.00
+		lineageTag: cac028b5-ad14-475b-83a0-feada77dcd3d
+
+	measure 'Qtd Fornecedores Ativos' = DISTINCTCOUNT(FatoCompras[ID_Fornecedor])
+		formatString: 0
+		lineageTag: d7120299-f06e-46f2-a187-47f8fb5d3137
+
+	measure 'Spend Itens Criticos' = CALCULATE([Spend Total], DimItem[Criticidade] = "Crítico")
+		formatString: "R$" #,0.00
+		lineageTag: 1ab53240-cdc4-4d38-b71e-3ac302216829
+
+	measure 'Spend Total (Cartao)' = "R$ " & FORMAT(DIVIDE([Spend Total], 1000000), "#,0.0") & " Mi"
+		lineageTag: 249a4776-934b-45cd-b364-8632d5efcfd4
+
+	measure 'Savings Realizado (Cartao)' = "R$ " & FORMAT(DIVIDE([Savings Realizado], 1000000), "#,0.0") & " Mi"
+		lineageTag: 755233be-7a1a-43bd-97ee-461986ad9957
+
+	measure '% OTIF (Cartao)' = FORMAT([% OTIF], "0.0%")
+		lineageTag: 4ce871d1-48d5-4952-ac32-277a35cfdc50
+
+	column ID_Pedido
+		dataType: string
+		lineageTag: 24740c2b-07b1-434b-9660-d458bb8ed322
+		summarizeBy: none
+		sourceColumn: ID_Pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data_Pedido
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 9bb8f027-0f4d-418f-9a07-6fb7921c3a92
+		summarizeBy: none
+		sourceColumn: Data_Pedido
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Data_Entrega_Prevista
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bb1f066c-0bc6-4df3-833f-b17a6c5c6053
+		summarizeBy: none
+		sourceColumn: Data_Entrega_Prevista
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Data_Entrega_Real
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: a43f37f9-82c9-48f8-b6bd-053d6ac865b7
+		summarizeBy: none
+		sourceColumn: Data_Entrega_Real
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ID_Fornecedor
+		dataType: string
+		lineageTag: 99866523-60f1-4059-a323-c2feaba5d978
+		summarizeBy: none
+		sourceColumn: ID_Fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Item
+		dataType: string
+		lineageTag: ab1178c3-06ef-4c6b-8313-9729e7d8fbdc
+		summarizeBy: none
+		sourceColumn: ID_Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantidade
+		dataType: int64
+		formatString: 0
+		lineageTag: c45a539f-d252-4218-83da-7dbf2d17c12b
+		summarizeBy: sum
+		sourceColumn: Quantidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column Preco_Tabela
+		dataType: double
+		lineageTag: a6f0e0b7-aad0-45b6-bcd6-abc3abe13d4f
+		summarizeBy: sum
+		sourceColumn: Preco_Tabela
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Preco_Negociado
+		dataType: double
+		lineageTag: 596fb7a2-b470-432c-a61d-849f09c6703f
+		summarizeBy: sum
+		sourceColumn: Preco_Negociado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Valor_Total
+		dataType: double
+		lineageTag: abd30778-9cce-4c34-8bf8-447bd8df51b1
+		summarizeBy: sum
+		sourceColumn: Valor_Total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Tipo_Compra
+		dataType: string
+		lineageTag: d9bde2ed-e931-46dc-9b9a-6aed8158bab9
+		summarizeBy: none
+		sourceColumn: Tipo_Compra
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status_Pedido
+		dataType: string
+		lineageTag: bc17985f-b53c-4e21-8877-17295030c787
+		summarizeBy: none
+		sourceColumn: Status_Pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FatoCompras = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\costa\Desktop\PROJETOS\portfolio-dashboards-compras\base_compras_supplychain.xlsx"), null, true),
+				    FatoCompras_Sheet = Fonte{[Item="FatoCompras",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(FatoCompras_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ID_Pedido", type text}, {"Data_Pedido", Int64.Type}, {"Data_Entrega_Prevista", Int64.Type}, {"Data_Entrega_Real", Int64.Type}, {"ID_Fornecedor", type text}, {"ID_Item", type text}, {"ID_Categoria", type text}, {"Quantidade", Int64.Type}, {"Preco_Tabela", type number}, {"Preco_Negociado", type number}, {"Valor_Total", type number}, {"Tipo_Compra", type text}, {"Status_Pedido", type text}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

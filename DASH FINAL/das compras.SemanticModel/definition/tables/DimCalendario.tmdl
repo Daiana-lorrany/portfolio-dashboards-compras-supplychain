@@ -1,0 +1,78 @@
+table DimCalendario
+	lineageTag: 35c8541e-2e83-485f-87ca-914a63cbf73b
+	dataCategory: Time
+
+	column Data
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 9c545a52-76df-4eb2-a10d-4035d617a333
+		summarizeBy: none
+		sourceColumn: Data
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 3f7fedd2-f209-4f7c-ae79-0988e82ca3a5
+		summarizeBy: none
+		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 8eeb9cdf-f927-4d62-bc1c-fdec0afe2738
+		summarizeBy: none
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome_Mes
+		dataType: string
+		lineageTag: 370017dd-34af-48d9-967c-11d6accf2985
+		summarizeBy: none
+		sourceColumn: Nome_Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Trimestre
+		dataType: string
+		lineageTag: ffe615f4-f3da-4c4c-af73-5b4b4a8c3fea
+		summarizeBy: none
+		sourceColumn: Trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ano_Mes
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 789e8ebf-a4d3-474c-a4d6-4ee7bf61f197
+		summarizeBy: none
+		sourceColumn: Ano_Mes
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DimCalendario = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\costa\Desktop\PROJETOS\portfolio-dashboards-compras\base_compras_supplychain.xlsx"), null, true),
+				    DimCalendario_Sheet = Fonte{[Item="DimCalendario",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(DimCalendario_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Data", Int64.Type}, {"Ano", Int64.Type}, {"Mes", Int64.Type}, {"Nome_Mes", type text}, {"Trimestre", type text}, {"Ano_Mes", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

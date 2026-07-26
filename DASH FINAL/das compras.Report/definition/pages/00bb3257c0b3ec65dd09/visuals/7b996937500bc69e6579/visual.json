@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "7b996937500bc69e6579",
+  "position": {
+    "x": 0,
+    "y": 205.10204081632654,
+    "z": 1000,
+    "height": 74.489795918367349,
+    "width": 444.89795918367349,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoCompras"
+                    }
+                  },
+                  "Property": "% Spend Top 5 Fornecedores"
+                }
+              },
+              "queryRef": "FatoCompras.% Spend Top 5 Fornecedores",
+              "nativeQueryRef": "% Spend Top 5 Fornecedores"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

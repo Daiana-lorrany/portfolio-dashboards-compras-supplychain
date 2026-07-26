@@ -1,0 +1,35 @@
+table DimCategoria
+	lineageTag: db684f9e-19ac-422e-93e8-0f63a5d61b20
+
+	column ID_Categoria
+		dataType: string
+		lineageTag: 1a176e96-26fa-425b-b44d-bfb4c34183ba
+		summarizeBy: none
+		sourceColumn: ID_Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome_Categoria
+		dataType: string
+		lineageTag: c9a63566-f89d-4eee-9a53-7fe61b71e6c9
+		summarizeBy: none
+		sourceColumn: Nome_Categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCategoria = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\costa\Desktop\PROJETOS\portfolio-dashboards-compras\base_compras_supplychain.xlsx"), null, true),
+				    DimCategoria_Sheet = Fonte{[Item="DimCategoria",Kind="Sheet"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(DimCategoria_Sheet,{{"Column1", type text}, {"Column2", type text}}),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Tipo Alterado", [PromoteAllScalars=true]),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ID_Categoria", type text}, {"Nome_Categoria", type text}})
+				in
+				    #"Tipo Alterado1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
