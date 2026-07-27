@@ -1,0 +1,197 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "412703f51d6529d82b06",
+  "position": {
+    "x": 0,
+    "y": 518.22055184475414,
+    "z": 3000,
+    "height": 192.04643980129123,
+    "width": 812.38692392133521,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimFornecedor"
+                    }
+                  },
+                  "Property": "Nome_Fornecedor"
+                }
+              },
+              "queryRef": "DimFornecedor.Nome_Fornecedor",
+              "nativeQueryRef": "Nome_Fornecedor"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoAvaliacaoFornecedor"
+                    }
+                  },
+                  "Property": "Nota Geral Fornecedor"
+                }
+              },
+              "queryRef": "FatoAvaliacaoFornecedor.Nota Geral Fornecedor",
+              "nativeQueryRef": "Nota Geral Fornecedor"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoAvaliacaoFornecedor"
+                    }
+                  },
+                  "Property": "Classificacao Fornecedor"
+                }
+              },
+              "queryRef": "FatoAvaliacaoFornecedor.Classificacao Fornecedor",
+              "nativeQueryRef": "Classificacao Fornecedor"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoAvaliacaoFornecedor"
+                    }
+                  },
+                  "Property": "Total Nao Conformidades"
+                }
+              },
+              "queryRef": "FatoAvaliacaoFornecedor.Total Nao Conformidades",
+              "nativeQueryRef": "Total Nao Conformidades"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "FatoAvaliacaoFornecedor"
+                  }
+                },
+                "Property": "Nota Geral Fornecedor"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "grid": [
+        {
+          "properties": {
+            "gridHorizontalColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "imageHeight": {
+              "expr": {
+                "Literal": {
+                  "Value": "90D"
+                }
+              }
+            },
+            "imageWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "88D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "total": [
+        {
+          "properties": {
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

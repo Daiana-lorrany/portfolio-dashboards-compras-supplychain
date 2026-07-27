@@ -1,0 +1,63 @@
+table DimFornecedor
+	lineageTag: 2d1455a6-6386-4c8f-bdc6-f22b40fa74b4
+
+	column ID_Fornecedor
+		dataType: string
+		lineageTag: 68224912-5775-4fb8-88f9-597457f94a8b
+		summarizeBy: none
+		sourceColumn: ID_Fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nome_Fornecedor
+		dataType: string
+		lineageTag: 0e194325-3b94-4746-a91c-b6dcb92bd584
+		summarizeBy: none
+		sourceColumn: Nome_Fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column Categoria_Risco
+		dataType: string
+		lineageTag: dfe88f02-ed05-446c-9ec8-c452c8e480ab
+		summarizeBy: none
+		sourceColumn: Categoria_Risco
+
+		annotation SummarizationSetBy = Automatic
+
+	column Localizacao
+		dataType: string
+		lineageTag: 71bd8349-02d4-412e-83b5-c3a66ba9e215
+		summarizeBy: none
+		sourceColumn: Localizacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fornecedor_Unico
+		dataType: string
+		lineageTag: 5c973bac-f6fa-4f8c-9914-bc759b698fd5
+		summarizeBy: none
+		sourceColumn: Fornecedor_Unico
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimFornecedor = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\costa\Downloads\base_supplier_scorecard.xlsx"), null, true),
+				    DimFornecedor_Sheet = Fonte{[Item="DimFornecedor",Kind="Sheet"]}[Data],
+				    #"Tipo Alterado" = Table.TransformColumnTypes(DimFornecedor_Sheet,{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+				    #"Cabeçalhos rebaixados" = Table.DemoteHeaders(#"Tipo Alterado"),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Cabeçalhos rebaixados",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Tipo Alterado1", [PromoteAllScalars=true]),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+				    #"Cabeçalhos Promovidos1" = Table.PromoteHeaders(#"Tipo Alterado2", [PromoteAllScalars=true]),
+				    #"Tipo Alterado3" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos1",{{"ID_Fornecedor", type text}, {"Nome_Fornecedor", type text}, {"Categoria_Risco", type text}, {"Localizacao", type text}, {"Fornecedor_Unico", type text}})
+				in
+				    #"Tipo Alterado3"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

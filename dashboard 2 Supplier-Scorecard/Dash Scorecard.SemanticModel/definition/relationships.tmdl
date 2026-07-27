@@ -1,0 +1,8 @@
+relationship 3a9503ea-fcbe-1a15-2034-c7ee759cd453
+	fromColumn: FatoAvaliacaoFornecedor.Data_Avaliacao
+	toColumn: DimCalendario.Data_Referencia
+
+relationship AutoDetected_ca48afc4-4389-4ab9-b74c-bf32f5700e54
+	fromColumn: FatoAvaliacaoFornecedor.ID_Fornecedor
+	toColumn: DimFornecedor.ID_Fornecedor
+

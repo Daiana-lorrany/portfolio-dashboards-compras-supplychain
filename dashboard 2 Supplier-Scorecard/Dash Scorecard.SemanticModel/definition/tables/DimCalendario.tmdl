@@ -1,0 +1,35 @@
+table DimCalendario
+	lineageTag: 6486e5e1-1d70-44c7-bef7-5dff77be144f
+
+	column Trimestre_Label
+		dataType: string
+		lineageTag: 351238a3-79e7-4cbb-a8e5-f0548143ea62
+		summarizeBy: none
+		sourceColumn: Trimestre_Label
+
+		annotation SummarizationSetBy = Automatic
+
+	column Data_Referencia
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 17875178-8ec8-4e11-8ed6-1a48d488fd63
+		summarizeBy: none
+		sourceColumn: Data_Referencia
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition DimCalendario = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Users\costa\Downloads\base_supplier_scorecard.xlsx"), null, true),
+				    DimCalendario_Sheet = Fonte{[Item="DimCalendario",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(DimCalendario_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Trimestre_Label", type text}, {"Data_Referencia", type date}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_ResultType = Table
+

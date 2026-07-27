@@ -1,0 +1,112 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "1b7d560e04c98d17a426",
+  "position": {
+    "x": 891.64418479170934,
+    "y": 67.063836121085828,
+    "z": 6001,
+    "height": 112.78917893091707,
+    "width": 271.30370067166541,
+    "tabOrder": 6001
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FatoAvaliacaoFornecedor"
+                    }
+                  },
+                  "Property": "Qtd Fornecedores Avaliados"
+                }
+              },
+              "queryRef": "FatoAvaliacaoFornecedor.Qtd Fornecedores Avaliados",
+              "nativeQueryRef": "Qtd Fornecedores Avaliados"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "FatoAvaliacaoFornecedor"
+                  }
+                },
+                "Property": "Qtd Fornecedores Avaliados"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "shapeCustomRectangle": [
+        {
+          "properties": {
+            "rectangleRoundedCurve": {
+              "expr": {
+                "Literal": {
+                  "Value": "15L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "outline": [
+        {
+          "properties": {
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1F4E78'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "8397e227404005453138",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "FatoAvaliacaoFornecedor"
+              }
+            },
+            "Property": "Qtd Fornecedores Avaliados"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

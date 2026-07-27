@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "87b145be38b710b21604",
+  "position": {
+    "x": 10,
+    "y": 0,
+    "z": 0,
+    "height": 280,
+    "width": 280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "radarChartATLYN5E8B2D4A9F1C7036",
+    "query": {
+      "queryState": {
+        "axis": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TabelaRadar"
+                    }
+                  },
+                  "Property": "ID_Fornecedor"
+                }
+              },
+              "queryRef": "TabelaRadar.ID_Fornecedor",
+              "nativeQueryRef": "ID_Fornecedor"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9613e07d4a19256dc503",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TabelaRadar"
+              }
+            },
+            "Property": "ID_Fornecedor"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

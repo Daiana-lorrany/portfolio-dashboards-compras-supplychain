@@ -1,0 +1,62 @@
+table TabelaRadar
+	lineageTag: 189ce100-2bf5-471a-9761-73711ea536a2
+
+	column ID_Fornecedor
+		lineageTag: 8a0ba761-4a1a-44aa-825b-61f4b018d13c
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [ID_Fornecedor]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Criterio
+		lineageTag: 380040de-f05f-42da-8189-1ba68d834df8
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Criterio]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nota
+		lineageTag: 9fec6cd6-c7ef-443c-95eb-5238a99f8680
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Nota]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition TabelaRadar = calculated
+		mode: import
+		source =
+				
+				UNION(
+				    SELECTCOLUMNS(
+				        FatoAvaliacaoFornecedor,
+				        "ID_Fornecedor", FatoAvaliacaoFornecedor[ID_Fornecedor],
+				        "Criterio", "Qualidade",
+				        "Nota", FatoAvaliacaoFornecedor[Nota_Qualidade]
+				    ),
+				    SELECTCOLUMNS(
+				        FatoAvaliacaoFornecedor,
+				        "ID_Fornecedor", FatoAvaliacaoFornecedor[ID_Fornecedor],
+				        "Criterio", "Prazo",
+				        "Nota", FatoAvaliacaoFornecedor[Nota_Prazo]
+				    ),
+				    SELECTCOLUMNS(
+				        FatoAvaliacaoFornecedor,
+				        "ID_Fornecedor", FatoAvaliacaoFornecedor[ID_Fornecedor],
+				        "Criterio", "Preço",
+				        "Nota", FatoAvaliacaoFornecedor[Nota_Preco]
+				    ),
+				    SELECTCOLUMNS(
+				        FatoAvaliacaoFornecedor,
+				        "ID_Fornecedor", FatoAvaliacaoFornecedor[ID_Fornecedor],
+				        "Criterio", "Risco",
+				        "Nota", FatoAvaliacaoFornecedor[Nota_Risco]
+				    )
+				)
+
+	annotation PBI_Id = 903c8a8ecdc24a438bc6a846aea9ca7f
+
