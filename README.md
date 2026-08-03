@@ -28,6 +28,12 @@ Os dados utilizados são fictícios, gerados para fins de demonstração — nã
 
 #  Portfólio de Analytics em Compras & Supply Chain
 
+## Índice — escolha um dashboard
+
+- [📦 Dashboard 1: Performance de Compras](#dashboard-1-performance-de-compras)
+- [🤝 Dashboard 2: Supplier Scorecard — Gestão de Fornecedores](#dashboard-2-supplier-scorecard--gestão-de-fornecedores)
+- [📊 Dashboard 3: Gestão de Estoque & MRP](#dashboard-3-gestão-de-estoque--mrp)
+
 ## Dashboard 1: Performance de Compras
 
 > Parte 1 de uma série de dashboards em Power BI aplicados à área de Compras e Supply Chain — próximos: Supplier Scorecard, Gestão de Estoque/MRP, Redução de Desperdício.
