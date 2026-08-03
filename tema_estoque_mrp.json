@@ -1,0 +1,86 @@
+{
+  "name": "Portfolio Supply Chain - Navy",
+  "dataColors": [
+    "#4A90D9",
+    "#E8A33D",
+    "#5BBFAE",
+    "#4FB489",
+    "#E5C15A",
+    "#D9709E",
+    "#8E7CC3",
+    "#9AA7B5",
+    "#5FC7D9",
+    "#C1544A"
+  ],
+  "background": "#122238",
+  "foreground": "#FFFFFF",
+  "tableAccent": "#2F6FA8",
+  "good": "#4FB489",
+  "neutral": "#E8A33D",
+  "bad": "#C1544A",
+  "maximum": "#4A90D9",
+  "center": "#9AA7B5",
+  "minimum": "#1A3050",
+  "null": "#3A4A5C",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#122238" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#3A4A5C" } } }],
+        "outspacePane": [{ "backgroundColor": { "solid": { "color": "#0C1729" } } }]
+      },
+      "title": [{
+        "show": true,
+        "fontColor": { "solid": { "color": "#FFFFFF" } },
+        "background": { "solid": { "color": "#00000000" } },
+        "fontSize": 13,
+        "bold": true,
+        "alignment": "left"
+      }],
+      "categoryAxis": [{
+        "gridlineColor": { "solid": { "color": "#3A4A5C" } },
+        "labelColor": { "solid": { "color": "#9AA7B5" } },
+        "axisColor": { "solid": { "color": "#3A4A5C" } }
+      }],
+      "valueAxis": [{
+        "gridlineColor": { "solid": { "color": "#3A4A5C" } },
+        "labelColor": { "solid": { "color": "#9AA7B5" } },
+        "axisColor": { "solid": { "color": "#3A4A5C" } }
+      }],
+      "legend": [{
+        "labelColor": { "solid": { "color": "#9AA7B5" } }
+      }],
+      "labels": [{
+        "color": { "solid": { "color": "#FFFFFF" } }
+      }]
+    },
+    "card": {
+      "*": {
+        "labels": [{ "color": { "solid": { "color": "#FFFFFF" } }, "fontSize": 32, "bold": true }],
+        "categoryLabels": [{ "color": { "solid": { "color": "#9AA7B5" } }, "fontSize": 11 }],
+        "background": [{ "color": { "solid": { "color": "#122238" } }, "transparency": 0 }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#3A4A5C" } } }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "columnHeaders": [{
+          "backColor": { "solid": { "color": "#2F6FA8" } },
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "bold": true
+        }],
+        "values": [{
+          "backColor": { "solid": { "color": "#122238" } },
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "backColorPrimary": { "solid": { "color": "#122238" } },
+          "backColorSecondary": { "solid": { "color": "#182B45" } }
+        }],
+        "total": [{
+          "backColor": { "solid": { "color": "#1A3050" } },
+          "fontColor": { "solid": { "color": "#FFFFFF" } },
+          "bold": true
+        }]
+      }
+    }
+  }
+}
