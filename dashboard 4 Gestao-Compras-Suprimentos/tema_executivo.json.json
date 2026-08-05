@@ -1,0 +1,13 @@
+{
+  "name": "Executivo Tech",
+  "dataColors": ["#1B2A4A", "#008080", "#2C3E50", "#E67E22", "#3498DB", "#9B59B6"],
+  "background": "#F4F7F9",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "border": [{ "show": true, "radius": 10, "color": "#E2E8F0" }],
+        "dropShadow": [{ "show": true, "color": "#000000", "transparency": 90, "blur": 5 }]
+      }
+    }
+  }
+}
